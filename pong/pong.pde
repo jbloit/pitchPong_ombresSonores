@@ -1,6 +1,11 @@
 // https://www.openprocessing.org/sketch/418048/
 // credit: Samabibou
 
+import oscP5.*;
+import netP5.*;
+
+OscP5 oscP5;
+
 Pad raquette1,raquette2;
 Balle balle1;
 float vitraq;
@@ -8,6 +13,12 @@ float vitraq;
 void setup(){
   size(1200,800);
   rectMode(CENTER);
+   
+   /* start oscP5, listening for incoming messages at port 12000 */
+  oscP5 = new OscP5(this,12000);
+  oscP5.plug(this,"audioLoudness","/audio/loudness");
+  oscP5.plug(this,"audioPitch","/audio/pitch");
+  
   raquette1 = new Pad(30,20,100);
   raquette2 = new Pad(width-30,20,100);
   balle1 = new Balle(1);
@@ -38,4 +49,17 @@ void keyReleased() {
     raquette1.vitesse = 0;
   else if ( k == UP &&  raquette2.vitesse < 0  || k == DOWN    &&  raquette2.vitesse > 0 )
     raquette2.vitesse = 0;
+}
+
+
+// OSC callbacks
+public void audioLoudness(float loudness_chan0, float loudness_chan1) {
+// unused yet
+}
+
+public void audioPitch(float pitch_chan0, float pitch_chan1) {
+  raquette1.y = (1.0 - pitch_chan0) * height;
+  
+  // uncomment to activate mic on input 2
+  // raquette2.y = (1.0 - pitch_chan1) * height;
 }
