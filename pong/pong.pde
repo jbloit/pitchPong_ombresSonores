@@ -60,6 +60,8 @@ public void audioLoudness(float loudness_chan0, float loudness_chan1) {
 public void audioPitch(float pitch_chan0, float pitch_chan1) {
   raquette1.y = (1.0 - pitch_chan0) * height;
   
+  println("OSC IN " + pitch_chan0);
+  
   // uncomment to activate mic on input 2
   // raquette2.y = (1.0 - pitch_chan1) * height;
 }
