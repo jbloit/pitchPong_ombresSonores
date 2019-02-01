@@ -1,12 +1,13 @@
 class Balle {
-  float x,y,vitx,vity, rayon;
+  float x,y,vitx,vity, rayon, initSpeed;
   
   Balle(int joueur){
+    initSpeed = 10;
     x = width/2 ;
     y = height/2;
-    if (joueur==1) vitx = 5;
-    else vitx = -5;
-    vity = random(-5,5);
+    if (joueur==1) vitx = initSpeed;
+    else vitx = -initSpeed;
+    vity = random(-initSpeed,initSpeed);
     rayon = 15;
   }
   

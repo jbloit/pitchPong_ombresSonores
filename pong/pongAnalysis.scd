@@ -1,6 +1,3 @@
-s.options.inDevice = "UMC202HD 192k";  // mac only?
-s.reboot;
-
 //////////////////////////////////// synth def and busses
 ~inputCount = 2;
 

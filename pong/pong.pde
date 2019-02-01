@@ -13,6 +13,7 @@ float vitraq;
 void setup(){
   size(1200,800);
   rectMode(CENTER);
+  frameRate(40);
    
    /* start oscP5, listening for incoming messages at port 12000 */
   oscP5 = new OscP5(this,12000);
@@ -22,7 +23,7 @@ void setup(){
   raquette1 = new Pad(30,20,100);
   raquette2 = new Pad(width-30,20,100);
   balle1 = new Balle(1);
-  vitraq = 5;
+  vitraq = 20;
 }
 
 void draw(){
