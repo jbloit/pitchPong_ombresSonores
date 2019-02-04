@@ -8,7 +8,7 @@ OscP5 oscP5;
 
 Pad padLeft, padRight;
 Balle balle1;
-float padSpeed;
+float initPadSpeed;
 
 void setup() {
   size(1200, 800);
@@ -23,7 +23,7 @@ void setup() {
   padLeft = new Pad(30, 20, height/5);
   padRight = new Pad(width-30, 20, height/5);
   balle1 = new Balle(1);
-  padSpeed = 20;
+  initPadSpeed = 20;
 }
 
 void draw() {
@@ -40,14 +40,16 @@ void draw() {
   padLeft.display();  
   padRight.display(); 
   balle1.display();
+  
+  
 }
-
+  
 void keyPressed() {
   int k = keyCode;
-  if      (k == 'A')    padLeft.padSpeed = -padSpeed; 
-  else if (k == 'Q')    padLeft.padSpeed =  padSpeed;
-  else if (k == UP )    padRight.padSpeed = -padSpeed;
-  else if (k == DOWN )    padRight.padSpeed = padSpeed;
+  if      (k == 'A')    padLeft.padSpeed = -initPadSpeed; 
+  else if (k == 'Q')    padLeft.padSpeed =  initPadSpeed;
+  else if (k == UP )    padRight.padSpeed = -initPadSpeed;
+  else if (k == DOWN )    padRight.padSpeed = initPadSpeed;
 }
 
 void keyReleased() {
