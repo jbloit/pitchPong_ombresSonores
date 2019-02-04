@@ -66,11 +66,11 @@ public void audioLoudness(float loudness_cpadHeightn0, float loudness_cpadHeight
   // unused yet
 }
 
-public void audioPitch(float pitch_cpadHeightn0, float pitch_cpadHeightn1) {
-  padLeft.y = (1.0 - pitch_cpadHeightn0) * height;
+public void audioPitch(float pitch_padL, float pitch_padR) {
+  padLeft.y = (1.0 - pitch_padL) * height;
 
-  println("OSC IN " + pitch_cpadHeightn0);
+  println("OSC IN " + pitch_padL + " " + pitch_padR);
 
   // uncomment to activate mic on input 2
-  // padRight.y = (1.0 - pitch_cpadHeightn1) * height;
+  padRight.y = (1.0 - pitch_padR) * height;
 }
