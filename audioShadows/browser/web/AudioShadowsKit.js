@@ -14,7 +14,7 @@
 //// APIs you can use in your code:
 //
 // Available methods for drawing into <canvas> elements:
-//    AudioShadowsKit.drawCanvas1(canvas, grow, timbre, timbreGain, targetFrame*, resizing*)
+//    AudioShadowsKit.drawTwoShadows(canvas, grow, timbre, timbreGain, targetFrame*, resizing*)
 //
 // NOTE: 'canvas' parameter can be either a <canvas> element object, or the id of a <canvas> element in your document.
 //
@@ -37,17 +37,17 @@ var AudioShadowsKit = {};
 
     //// Drawing Methods
 
-    function drawCanvas1(canvas, grow, timbre, timbreGain, targetFrame, resizing) {
+    function drawTwoShadows(canvas, grow, timbre, timbreGain, targetFrame, resizing) {
         //// General Declarations
         canvas = typeof canvas === 'string' ? document.getElementById(canvas) : canvas;
         var context = canvas.getContext('2d');
         
         //// Resize to Target Frame
         context.save();
-        var resizedFrame = applyResizingBehavior(resizing, makeRect(0, 0, 240, 120), targetFrame);
+        var resizedFrame = applyResizingBehavior(resizing, makeRect(0, 0, 239, 120), targetFrame);
         context.translate(resizedFrame.x, resizedFrame.y);
-        context.scale(resizedFrame.w / 240, resizedFrame.h / 120);
-        var resizedShadowScale = Math.min(resizedFrame.w / 240, resizedFrame.h / 120);
+        context.scale(resizedFrame.w / 239, resizedFrame.h / 120);
+        var resizedShadowScale = Math.min(resizedFrame.w / 239, resizedFrame.h / 120);
 
 
 
@@ -538,7 +538,7 @@ var AudioShadowsKit = {};
     //// Public Interface
 
     // Drawing Methods
-    AudioShadowsKit.drawCanvas1 = drawCanvas1;
+    AudioShadowsKit.drawTwoShadows = drawTwoShadows;
 
     // Utilities
     AudioShadowsKit.clearCanvas = clearCanvas;

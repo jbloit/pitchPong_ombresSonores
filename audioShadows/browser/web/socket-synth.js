@@ -3,6 +3,10 @@ var example = example || {};
 (function () {
     "use strict";
 
+    window.onload = function() {
+        AudioShadowsKit.drawTwoShadows('mainCanvas', 0, 0, 0);
+    };
+
 
     example.SocketSynth = function () {
         this.oscPort = new osc.WebSocketPort({
@@ -15,7 +19,6 @@ var example = example || {};
         this.oscPort.socket.onmessage = function (e) {
             console.log("message", e);
         };
-
 
     };
 
@@ -33,7 +36,11 @@ var example = example || {};
 
         var address = oscMessage.address;
         var value = oscMessage.args[0];
-        var transformSpec = this.valueMap[address];
+
+
+        AudioShadowsKit.clearCanvas('mainCanvas');
+        AudioShadowsKit.drawTwoShadows('mainCanvas', value, 0, 0);
+
 
     };
 

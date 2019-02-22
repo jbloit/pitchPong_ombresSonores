@@ -8,6 +8,12 @@
         <script src="/node_modules/osc/dist/osc-browser.js"></script>
         <script src="/node_modules/flocking/dist/flocking-all.min.js"></script>
         <script src="/socket-synth.js"></script>
+        <script src="/AudioShadowsKit.js"></script>
+
+        <script>
+
+        </script>
+
     </head>
 
     <body>
@@ -17,7 +23,7 @@
             <p id="messageLabel">OSC Message:</p>
             <pre id="message"></pre>
         </div>
-
+        <canvas id="mainCanvas" width="240" height="120"></canvas>
         <script>
             var socketSynth = new example.SocketSynth();
         </script>
