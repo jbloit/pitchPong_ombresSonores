@@ -1,4 +1,5 @@
 // s.options.inDevice_("UMC202HD 192k");
+// s.options.outDevice_("UMC202HD 192k");
 
 s.waitForBoot({
 	//////////////////////////////////// synth def and busses

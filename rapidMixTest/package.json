@@ -1,0 +1,14 @@
+{
+  "name": "rapidmixtest",
+  "version": "1.0.0",
+  "description": "test rap",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Julien Bloit",
+  "license": "ISC",
+  "dependencies": {
+    "rapidlib": "^1.2.0"
+  }
+}
