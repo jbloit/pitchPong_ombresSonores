@@ -9,15 +9,17 @@ s.waitForBoot({
 	// bus arrays, group per audio input
 	~meterBusses = Array.new;
 	~pitchBusses = Array.new;
+	~voicedBusses = Array.new;
 
 	~inputCount.do{|i|
 		~meterBusses = ~meterBusses.add(Bus.control(s, 1));
 		~pitchBusses = ~pitchBusses.add(Bus.control(s, 1));
+		~voicedBusses = ~voicedBusses.add(Bus.control(s, 1));
 	};
 
 	// Analyze audio features and copy them in control busses
 	SynthDef(\audioAnalyzer, {
-		|in=0, meterOut=0, pitchOut=0|
+		|in=0, meterOut=0, pitchOut=0, voicedOut=0|
 
 		var input, amp, pitch, hasFreq, minFreq, maxFreq;
 		minFreq = 90;
@@ -28,8 +30,9 @@ s.waitForBoot({
 
 		Out.kr(meterOut, amp);
 		Out.kr(pitchOut, (pitch * hasFreq / maxFreq).lag(1));
+		// Out.kr(voicedOut, (amp *10* hasFreq.linlin(0, 1, -1, 1)).lag(1));
+		Out.kr(voicedOut, hasFreq.lag(1));
 	}).add;
-
 
 	s.sync;
 
@@ -38,29 +41,31 @@ s.waitForBoot({
 
 	~uiMachine = NetAddr.new("127.0.0.1", 12000);
 
-	~pitches = Array.newClear(~inputCount);
 	SystemClock.sched(0.0,
 		{
 
-			var doneGettingPitch = false;
 			~inputCount.do({|i|
-				~pitchBusses[i].get({|val|
-					~pitches[i] = val;
-					~uiMachine.sendMsg("/audio/pitch", ~pitches[0], ~pitches[1]);
+
+				~pitchBusses[i].get({|pitchVal|
+
+					~meterBusses[i].get({|ampVal|
+
+						~voicedBusses[i].get({|voicedVal|
+
+							~uiMachine.sendMsg("/audio/chan_"++i, pitchVal, ampVal, voicedVal);
+
+						});
+					});
 				};
 				);
 			});
-
-			~meterBusses[0].get({|val|
-				~uiMachine.sendMsg("/audio/amplitude", val, 1.0);
-			};);
 
 			0.01;
 		};
 	);
 
-	~player1 = Synth(\audioAnalyzer, [\in, 0, \meterOut, ~meterBusses[0].index, \pitchOut, ~pitchBusses[0].index ] );
-	~player2 = Synth(\audioAnalyzer, [\in, 1, \meterOut, ~meterBusses[1].index, \pitchOut, ~pitchBusses[1].index ] );
+	~player1 = Synth(\audioAnalyzer, [\in, 0, \meterOut, ~meterBusses[0].index, \voicedOut, ~voicedBusses[0], \pitchOut, ~pitchBusses[0].index ] );
+	~player2 = Synth(\audioAnalyzer, [\in, 1, \meterOut, ~meterBusses[1].index, \voicedOut, ~voicedBusses[1], \pitchOut, ~pitchBusses[1].index ] );
 };
 );
 
