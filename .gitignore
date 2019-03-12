@@ -1,3 +1,4 @@
 *.autosave
 audioShadows/browser/web/node_modules
 audioShadows/browser/node_modules
+*.mov
