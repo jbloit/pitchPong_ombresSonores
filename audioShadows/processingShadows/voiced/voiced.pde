@@ -62,9 +62,30 @@ for (int i=0; i<sliceCount; i++){
   
   bezierVertex(controlPoints[i*2].x, controlPoints[i*2].y, controlPoints[i*2 + 1].x, controlPoints[i*2 +1 ].y, outerVertices[i].x, outerVertices[i].y);
   
+  
+  ellipseMode(CENTER);
+  ellipse(controlPoints[i*2].x, controlPoints[i*2].y, 10, 10);
+  
+  ellipse(controlPoints[i*2 + 1].x, controlPoints[i*2 +1].y, 10, 10);
+  
+
 }
+
 
 vertex(innerVertices[0].x, innerVertices[0].y);
 
 endShape();
+
+for (int i=0; i<sliceCount; i++){
+  fill(200);
+  ellipse(innerVertices[i].x,innerVertices[i].y, 10,10);
+
+}
+
+for (int i=0; i<sliceCount; i++){
+  fill(100);
+  ellipse(outerVertices[i].x,outerVertices[i].y, 10,10);
+
+}
+
 }
