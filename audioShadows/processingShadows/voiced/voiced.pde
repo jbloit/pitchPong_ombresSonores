@@ -2,9 +2,10 @@
 
 
 
-int sliceCount = 6;
+int sliceCount = 10;
 float innerRadius;
 float outerRadius;
+float midRadius;
 float sliceAngle = TWO_PI / sliceCount ;
 float halfSliceAngle = sliceAngle/2 ;
 float quarterSliceAngle = halfSliceAngle ;
@@ -17,8 +18,9 @@ void setup(){
 size(300,300);
 background(255);
 
-innerRadius = width * 0.2;
+innerRadius = width * 0.1;
 outerRadius = width * 0.4;
+midRadius = width * 0.2;
 
 center = new PVector(width/2, height/2);
 
@@ -48,8 +50,8 @@ for (int i=0; i<sliceCount; i++){
   innerVertices[i] = new PVector(cos(sliceAngle * i) * innerRadius + center.x, sin(sliceAngle * i) * innerRadius + center.y);
  
   outerVertices[i] = new PVector(cos(sliceAngle * i + halfSliceAngle) * outerRadius + center.x, sin(sliceAngle * i + halfSliceAngle) * outerRadius + center.y);
-  controlPoints[i*2] = new PVector(cos(sliceAngle * i - quarterSliceAngle) * outerRadius + center.x, sin(sliceAngle * i - quarterSliceAngle) * outerRadius + center.y);
-  controlPoints[i*2 + 1] = new PVector(cos(sliceAngle * i + quarterSliceAngle) * outerRadius + center.x, sin(sliceAngle * i + quarterSliceAngle) * outerRadius + center.y);
+  controlPoints[i*2] = new PVector(cos(sliceAngle * i - quarterSliceAngle) * midRadius + center.x, sin(sliceAngle * i - quarterSliceAngle) * midRadius + center.y);
+  controlPoints[i*2 + 1] = new PVector(cos(sliceAngle * i + quarterSliceAngle) * midRadius + center.x, sin(sliceAngle * i + quarterSliceAngle) * midRadius + center.y);
 }
 
 
@@ -63,11 +65,12 @@ for (int i=0; i<sliceCount; i++){
   bezierVertex(controlPoints[i*2].x, controlPoints[i*2].y, controlPoints[i*2 + 1].x, controlPoints[i*2 +1 ].y, outerVertices[i].x, outerVertices[i].y);
   
   
+  /*
   ellipseMode(CENTER);
   ellipse(controlPoints[i*2].x, controlPoints[i*2].y, 10, 10);
   
   ellipse(controlPoints[i*2 + 1].x, controlPoints[i*2 +1].y, 10, 10);
-  
+  */
 
 }
 
@@ -75,7 +78,7 @@ for (int i=0; i<sliceCount; i++){
 vertex(innerVertices[0].x, innerVertices[0].y);
 
 endShape();
-
+/*
 for (int i=0; i<sliceCount; i++){
   fill(200);
   ellipse(innerVertices[i].x,innerVertices[i].y, 10,10);
@@ -87,5 +90,6 @@ for (int i=0; i<sliceCount; i++){
   ellipse(outerVertices[i].x,outerVertices[i].y, 10,10);
 
 }
+*/
 
 }
