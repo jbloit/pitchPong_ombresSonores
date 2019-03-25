@@ -69,9 +69,3 @@ s.waitForBoot({
 };
 );
 
-
-/*
-~pitchBusses
-~pitchBusses[1]
-*/
-
