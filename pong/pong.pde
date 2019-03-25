@@ -17,8 +17,9 @@ void setup() {
 
   /* start oscP5, listening for incoming messages at port 12000 */
   oscP5 = new OscP5(this, 12000);
-  oscP5.plug(this, "audioLoudness", "/audio/loudness");
-  oscP5.plug(this, "audioPitch", "/audio/pitch");
+  
+  oscP5.plug(this, "audioDescriptorsChan0", "/audio/chan_0");
+  oscP5.plug(this, "audioDescriptorsChan1", "/audio/chan_1");
 
   padLeft = new Pad(30, 20, height/5);
   padRight = new Pad(width-30, 20, height/5);
@@ -62,15 +63,13 @@ void keyReleased() {
 
 
 // OSC callbacks
-public void audioLoudness(float loudness_cpadHeightn0, float loudness_cpadHeightn1) {
-  // unused yet
+
+public void audioDescriptorsChan0(float pitchVal, float ampVal, float voicedVal){
+      
+        padLeft.y = (1.0 - pitchVal) * height;
 }
 
-public void audioPitch(float pitch_padL, float pitch_padR) {
-  padLeft.y = (1.0 - pitch_padL) * height;
-
-  println("OSC IN " + pitch_padL + " " + pitch_padR);
-
-  // uncomment to activate mic on input 2
-  padRight.y = (1.0 - pitch_padR) * height;
+public void audioDescriptorsChan1(float pitchVal, float ampVal, float voicedVal){
+      
+        padRight.y = (1.0 - pitchVal) * height;
 }
