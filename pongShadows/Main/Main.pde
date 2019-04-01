@@ -1,3 +1,9 @@
+/*
+The root App containing the Pitch-Pong game and the Audio-Shadows game.
+ This allows switching from one game to another within the same App.
+ */
+
+
 import oscP5.*;
 import netP5.*;
 
@@ -23,9 +29,9 @@ float initPadSpeed;
 
 void setup() {
 
-  // size(400, 400);
-
+  //size(800, 600);
   fullScreen();
+
   frameRate(30);  
   background(255);
   pong = new Pong(this);
@@ -47,6 +53,10 @@ void draw() {
   } else {
     shadows.draw();
   }
+
+  // fps
+  fill(0, 255, 0);
+  text("FPS: " + frameRate, 20, 20);
 }
 
 

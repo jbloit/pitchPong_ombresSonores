@@ -39,5 +39,7 @@ class Pong {
     padLeft.display();  
     padRight.display(); 
     balle1.display();
+
+
   }
 }
