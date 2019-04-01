@@ -32,16 +32,34 @@ int slices = 20;
 float pie_slice = TWO_PI/slices;
 float x, y, szX, szY, theta;
 
+//sahder buffer
+PGraphics canvas;
+PShader shader;
+// brightness threshold
+float minBrightness = 0.8;
+
+
 void setup()
 {
 
-  size(800, 600);
+  size(800, 600, P2D);
+  frameRate(60);
   //fullScreen();
 
   background(255);
   kinect = new Kinect(this);
 
   bodies = new ArrayList<SkeletonData>();
+  
+  
+    // load shader and set threshold
+  shader = loadShader("mask.glsl");
+  shader.set("brightPassThreshold", minBrightness);
+
+  // init buffer and apply shader
+  canvas = createGraphics(320, 240, P2D);
+  canvas.shader(shader);
+
 }
 
 color c ;
@@ -53,10 +71,21 @@ void draw()
   background(255);
 
 
+
+
   // draw silhouette
   img = kinect.GetMask();
   
+    canvas.beginDraw();
+  canvas.image(img, 0, 0, 320, 240);
   
+    // use texture shader to filter the canvas
+  //canvas.filter(shader);
+  canvas.endDraw();
+  image(canvas, 320, 0, 320, 240);
+  
+  
+/*  
   
   img.loadPixels();
 
@@ -85,6 +114,8 @@ void draw()
   {
     drawSkeleton(bodies.get(i));
   }
+  
+  */
 
   // fps
   fill(0, 255, 0);

@@ -41,8 +41,8 @@ void draw()
 {
   
   if (calibrationMode){
-    minThresh = mouseX ;
-    maxThresh = mouseY / height * 255.0;
+    minThresh = float(mouseX) / width *255.0 ;
+    maxThresh = float(mouseY) / height * 255.0;
   }
   
   
