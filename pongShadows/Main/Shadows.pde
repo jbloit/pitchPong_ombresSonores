@@ -1,22 +1,21 @@
 
 
-class Pong {
+class Shadows {
 
   PApplet parent;
-
+  int doDraw;
 
   boolean isSceneEmpty = true;
 
-  public Pong(PApplet _parent) {
+  public Shadows(PApplet _parent) {
     parent = _parent;
 
 
 
   }
   public void draw() {
-    clear();
 
-        ellipse(width/2, height/2, 40, 40);
- 
+        rect(width/2, height/2, 40, 40);
+
   }
 }
