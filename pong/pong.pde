@@ -11,7 +11,8 @@ Balle balle1;
 float initPadSpeed;
 
 void setup() {
-  size(1200, 800);
+//  size(1200, 800);
+  fullScreen();
   rectMode(CENTER);
   frameRate(30);
 

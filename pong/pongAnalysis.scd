@@ -4,6 +4,7 @@
 s.waitForBoot({
 	//////////////////////////////////// synth def and busses
 	~inputCount = 2;
+	~oscSendPeriod = 0.05; //sec
 
 	Bus.clear;
 	// bus arrays, group per audio input
@@ -51,7 +52,7 @@ s.waitForBoot({
 					~meterBusses[i].get({|ampVal|
 
 						~voicedBusses[i].get({|voicedVal|
-
+							// pitchVal.postln;
 							~uiMachine.sendMsg("/audio/chan_"++i, pitchVal, ampVal, voicedVal);
 
 						});
@@ -60,7 +61,7 @@ s.waitForBoot({
 				);
 			});
 
-			0.01;
+			~oscSendPeriod;
 		};
 	);
 
