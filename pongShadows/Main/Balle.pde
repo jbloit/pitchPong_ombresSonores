@@ -1,8 +1,8 @@
 class Balle {
-  float x, y, xSpeed, ySpeed, radius, initSpeed;
+  float x, y, xSpeed, ySpeed, radius, initSpeed, fpsYspeed, fpsXspeed;
 
   Balle(int player) {
-    initSpeed = 10;
+    initSpeed = 5;
     x = width/2 ;
     y = height/2;
     if (player==1) xSpeed = initSpeed;
@@ -17,8 +17,10 @@ class Balle {
   }
 
   void update() {
-    x = x + xSpeed;
-    y = y + ySpeed;
+    fpsXspeed = FPS / frameRate * xSpeed;
+    fpsYspeed = FPS / frameRate * ySpeed;
+    x = x + fpsXspeed;
+    y = y + fpsYspeed;
     if (x < (3 * radius)) {
       if (y>padLeft.y-(padLeft.padHeight)/2 && y<padLeft.y+(padLeft.padHeight)/2) {
         x= 30 + radius;

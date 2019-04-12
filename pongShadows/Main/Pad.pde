@@ -7,11 +7,9 @@ class Pad {
     x = abscisse;
     padWidth = _width;
     padHeight = _height;
-    padSpeed = 0;
   }
 
   void update() {
-    y += padSpeed;
     if (y < padHeight/2) y = padHeight/2;
     if (y>height-padHeight/2) y=height-padHeight/2;
   }

@@ -26,13 +26,14 @@ OscP5 oscP5;
 Pad padLeft, padRight;
 Balle balle1;
 float initPadSpeed;
+int FPS = 30;
 
 void setup() {
 
-  //size(800, 600);
-  fullScreen();
+  size(800, 600);
+  //fullScreen();
 
-  frameRate(30);  
+  frameRate(FPS);  
   background(255);
   pong = new Pong(this);
   shadows = new Shadows(this);
@@ -45,7 +46,7 @@ void setup() {
 }
 
 void draw() {
-  updateGameTimer();
+  //updateGameTimer();
 
   clear();
   if (currentGame == GAME.PONG) {
@@ -56,7 +57,7 @@ void draw() {
 
   // fps
   fill(0, 255, 0);
-  text("FPS: " + frameRate, 20, 20);
+//  text("FPS: " + frameRate, 20, 20);
 }
 
 

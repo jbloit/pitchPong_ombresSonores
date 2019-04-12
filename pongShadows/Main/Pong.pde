@@ -10,7 +10,7 @@ class Pong {
     padLeft = new Pad(30, 20, height/5);
     padRight = new Pad(width-30, 20, height/5);
     balle1 = new Balle(1);
-    initPadSpeed = 20;
+
   }
 
   public void setPitch(int chan, float value) {
