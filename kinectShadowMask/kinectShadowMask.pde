@@ -91,12 +91,12 @@ void draw()
   text("FPS: " + frameRate, 20, 20);
 }
 
+// sombrero shadow
 void drawLoudnessShadow(float centerX, float centerY) {
   fill(0);
 
-  y = map(sin(theta), -1, 1, -20, -150);
-  //y = -30;
-  szY = height/2+y ;
+  y = map(theta, 0, 1, 0, -150);
+  szY = height/4 + y ;
   szX = 200; 
   for (int i=0; i<slices; i++) {
     pushMatrix();
@@ -104,11 +104,13 @@ void drawLoudnessShadow(float centerX, float centerY) {
     rotate(i*pie_slice);
     arc(0, y, szX, szY, (PI*1.5)-(pie_slice/2), (PI*1.5)+(pie_slice/2));
     popMatrix();
-  }   
-  theta += 0.0523;
-  //theta += 1.0;
+  } 
+  theta = float(mouseY) / height ;
+  
+  float w = 50 + 100 * float(mouseY) / height; 
+  float h = w;
+  ellipse(centerX, centerY, w, h);
 }
-
 
 void drawSkeleton(SkeletonData _s) 
 {
@@ -205,6 +207,7 @@ void DrawHead(SkeletonData _s, int _j1) {
 
     // audio loudness shadow
     drawLoudnessShadow(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y);
+
   }
 }
 

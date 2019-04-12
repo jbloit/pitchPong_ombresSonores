@@ -17,7 +17,7 @@ int switchGamePeriodMs = 10000;
 enum GAME {
   PONG, SHADOWS
 };
-GAME currentGame = GAME.PONG;
+GAME currentGame = GAME.SHADOWS  ;
 
 // OSC
 OscP5 oscP5;
