@@ -11,7 +11,7 @@ Balle balle1;
 float initPadSpeed;
 
 void setup() {
-  size(1200, 800);
+  size(800, 600);
 //  fullScreen();
   rectMode(CENTER);
   frameRate(30);
@@ -42,6 +42,11 @@ void draw() {
   padLeft.display();  
   padRight.display(); 
   balle1.display();
+  
+  
+  textSize(30);
+  fill(255);
+  text("FPS " + frameRate, 30, 30);
   
   
 }
