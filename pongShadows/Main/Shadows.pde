@@ -13,7 +13,12 @@ class Shadows {
   color white = color(255);
   color black = color (0);
 
-  // origin for silhouette and skeleton image
+  // Audio analysis current values
+  float ampValue = 0;
+  float voicedValue = 0;
+
+
+  // Origin for silhouette and skeleton image
   PVector kinectImgOffset = new PVector(50, 50);
 
   // For loudness shadow  
@@ -55,7 +60,7 @@ class Shadows {
     img.updatePixels();
     image(img, kinectImgOffset.x, kinectImgOffset.y);
 
-  println(bodies.size());
+    println(bodies.size());
 
     for (int i=0; i<bodies.size(); i++) 
     {
@@ -79,9 +84,11 @@ class Shadows {
       arc(0, y, szX, szY, (PI*1.5)-(pie_slice/2), (PI*1.5)+(pie_slice/2));
       popMatrix();
     } 
-    theta = float(mouseY) / height ;
 
-    float w = 50 + 100 * float(mouseY) / height; 
+    theta = ampValue ;
+
+    //  draw inner circle
+    float w = 50 + 100 * ampValue; 
     float h = w;
     ellipse(centerX, centerY, w, h);
   }
@@ -197,6 +204,22 @@ class Shadows {
         _s.skeletonPositions[_j2].y * kinectHeight + kinectImgOffset.y);
     }
   }
+
+  //////////////////////////////////////////////////////////////////
+  // Audio analysis callbacks
+
+  public void setLoudness(float ampVal) {
+    this.ampValue = ampVal;
+  }  
+
+  public void setVoiced(float voicedVal) {
+    this.voicedValue = voicedVal;
+  }
+
+
+
+  //////////////////////////////////////////////////////////////////
+  // Kinect callbacks
 
   public void appearEvent(SkeletonData _s) 
   {

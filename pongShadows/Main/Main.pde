@@ -79,9 +79,11 @@ void updateGameTimer() {
 // OSC callbacks
 public void audioDescriptorsChan0(float pitchVal, float ampVal, float voicedVal) {
   pong.setPitch(0, pitchVal);
+  shadows.setLoudness(ampVal);
 }
 public void audioDescriptorsChan1(float pitchVal, float ampVal, float voicedVal) {
   pong.setPitch(1, pitchVal);
+  shadows.setVoiced(voicedVal);
 }
 
 
