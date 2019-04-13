@@ -46,7 +46,7 @@ void setup() {
 }
 
 void draw() {
-  //updateGameTimer();
+  // updateGameTimer();
 
   clear();
   if (currentGame == GAME.PONG) {
@@ -57,7 +57,7 @@ void draw() {
 
   // fps
   fill(0, 255, 0);
-//  text("FPS: " + frameRate, 20, 20);
+  text("FPS: " + frameRate, 20, 20);
 }
 
 
@@ -82,4 +82,19 @@ public void audioDescriptorsChan0(float pitchVal, float ampVal, float voicedVal)
 }
 public void audioDescriptorsChan1(float pitchVal, float ampVal, float voicedVal) {
   pong.setPitch(1, pitchVal);
+}
+
+
+
+//////////// Kinect callbacks, need to be registered to a PApplet, not to a subclass like Shadows.
+void appearEvent(SkeletonData _s) {
+  shadows.appearEvent( _s);
+}
+
+void disappearEvent(SkeletonData _s) {
+  shadows.disappearEvent( _s);
+}
+
+void moveEvent(SkeletonData _b, SkeletonData _a) {
+  shadows.moveEvent( _b, _a);
 }

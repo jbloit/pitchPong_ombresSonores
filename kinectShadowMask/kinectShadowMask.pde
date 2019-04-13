@@ -79,7 +79,7 @@ void draw()
   img.updatePixels();
   image(img, kinectImgOffset.x, kinectImgOffset.y);
 
-
+println(bodies.size());
   // draw head pointer
   for (int i=0; i<bodies.size (); i++) 
   {
