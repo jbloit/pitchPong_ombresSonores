@@ -1,7 +1,3 @@
-
-
-
-
 int sliceCount = 10;
 float innerRadius;
 float outerRadius;
@@ -14,82 +10,76 @@ PVector[] outerVertices;
 PVector[] innerVertices;
 PVector center;
 
-void setup(){
-size(300,300);
-background(255);
+void setup() {
+  size(300, 300);
+  background(255);
 
-innerRadius = width * 0.1;
-outerRadius = width * 0.4;
-midRadius = width * 0.2;
+  innerRadius = width * 0.1;
+  outerRadius = width * 0.4;
+  midRadius = width * 0.2;
 
-center = new PVector(width/2, height/2);
+  center = new PVector(width/2, height/2);
 
-controlPoints = new PVector[sliceCount*2]; // for outer vertices
-outerVertices = new PVector[sliceCount];
-innerVertices = new PVector[sliceCount];
-
+  controlPoints = new PVector[sliceCount*2]; // for outer vertices
+  outerVertices = new PVector[sliceCount];
+  innerVertices = new PVector[sliceCount];
 }
 
-void draw(){
-clear();
-background(255);
-fill(0);
-center = new PVector(center.x, center.y);
+void draw() {
+  clear();
+  background(255);
+  fill(0);
+  center = new PVector(center.x, center.y);
 
-//update shape
+  //update shape
 
-quarterSliceAngle = map(mouseX, 0, width, 0, sliceAngle);
-outerRadius = map(mouseY , 0, height, innerRadius, width + 0.3);
+  quarterSliceAngle = map(mouseX, 0, width, -sliceAngle, sliceAngle);
+  outerRadius = map(mouseY, 0, height, innerRadius, width + 0.3);
+  midRadius = map(mouseX, 0, width, outerRadius, innerRadius);
 
+  for (int i=0; i<sliceCount; i++) {
 
+    innerVertices[i] = new PVector(cos(sliceAngle * i) * innerRadius + center.x, sin(sliceAngle * i) * innerRadius + center.y);
 
-
-
-for (int i=0; i<sliceCount; i++){
-  
-  innerVertices[i] = new PVector(cos(sliceAngle * i) * innerRadius + center.x, sin(sliceAngle * i) * innerRadius + center.y);
- 
-  outerVertices[i] = new PVector(cos(sliceAngle * i + halfSliceAngle) * outerRadius + center.x, sin(sliceAngle * i + halfSliceAngle) * outerRadius + center.y);
-  controlPoints[i*2] = new PVector(cos(sliceAngle * i - quarterSliceAngle) * midRadius + center.x, sin(sliceAngle * i - quarterSliceAngle) * midRadius + center.y);
-  controlPoints[i*2 + 1] = new PVector(cos(sliceAngle * i + quarterSliceAngle) * midRadius + center.x, sin(sliceAngle * i + quarterSliceAngle) * midRadius + center.y);
-}
+    outerVertices[i] = new PVector(cos(sliceAngle * i + halfSliceAngle) * outerRadius + center.x, sin(sliceAngle * i + halfSliceAngle) * outerRadius + center.y);
+    controlPoints[i*2] = new PVector(cos(sliceAngle * i - quarterSliceAngle) * midRadius + center.x, sin(sliceAngle * i - quarterSliceAngle) * midRadius + center.y);
+    controlPoints[i*2 + 1] = new PVector(cos(sliceAngle * i + quarterSliceAngle) * midRadius + center.x, sin(sliceAngle * i + quarterSliceAngle) * midRadius + center.y);
+  }
 
 
 
-// draw
-beginShape();
+  // draw
+  beginShape();
 
-for (int i=0; i<sliceCount; i++){
-  vertex(innerVertices[i].x, innerVertices[i].y);
-  
-  bezierVertex(controlPoints[i*2].x, controlPoints[i*2].y, controlPoints[i*2 + 1].x, controlPoints[i*2 +1 ].y, outerVertices[i].x, outerVertices[i].y);
-  
-  
-  /*
-  ellipseMode(CENTER);
-  ellipse(controlPoints[i*2].x, controlPoints[i*2].y, 10, 10);
-  
-  ellipse(controlPoints[i*2 + 1].x, controlPoints[i*2 +1].y, 10, 10);
-  */
+  for (int i=0; i<sliceCount; i++) {
+    vertex(innerVertices[i].x, innerVertices[i].y);
 
-}
+    bezierVertex(controlPoints[i*2].x, controlPoints[i*2].y, controlPoints[i*2 + 1].x, controlPoints[i*2 +1 ].y, outerVertices[i].x, outerVertices[i].y);
+  }
 
 
-vertex(innerVertices[0].x, innerVertices[0].y);
+  vertex(innerVertices[0].x, innerVertices[0].y);
 
-endShape();
+  endShape();
+
+
 /*
-for (int i=0; i<sliceCount; i++){
-  fill(200);
-  ellipse(innerVertices[i].x,innerVertices[i].y, 10,10);
+  ellipseMode(CENTER);
+  for (int i=0; i<sliceCount; i++) {
+    fill(0, 0, 200);
+    ellipse(innerVertices[i].x, innerVertices[i].y, 10, 10);
+  }
 
-}
+  for (int i=0; i<sliceCount; i++) {
+    fill(100);
+    ellipse(outerVertices[i].x, outerVertices[i].y, 10, 10);
 
-for (int i=0; i<sliceCount; i++){
-  fill(100);
-  ellipse(outerVertices[i].x,outerVertices[i].y, 10,10);
 
-}
+    fill(255, 0, 0);
+    ellipse(controlPoints[i*2].x, controlPoints[i*2].y, 10, 10);
+
+    ellipse(controlPoints[i*2 + 1].x, controlPoints[i*2 +1].y, 10, 10);
+  }
 */
 
 }
