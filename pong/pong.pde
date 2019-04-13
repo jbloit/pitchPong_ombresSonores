@@ -11,7 +11,7 @@ Balle balle1;
 float initPadSpeed;
 
 void setup() {
-  size(800, 600);
+  size(800, 600, P2D);
 //  fullScreen();
   rectMode(CENTER);
   frameRate(30);
@@ -28,17 +28,22 @@ void setup() {
   initPadSpeed = 20;
 }
 
+
+void update(){
+  padLeft.update();  
+  padRight.update(); 
+  balle1.update();
+
+}
 void draw() {
   background(0);
   stroke(255);
   line(0, 0, width-1, 0);   
   line(width-2, 0, width-2, height-2);
   line(width-2, height-2, 0, height-2);   
-  line(0, 0, 0, height-2);
-  line(width/2, 0, width/2, height);
-  padLeft.update();  
-  padRight.update(); 
-  balle1.update();
+  line(0, 0, 0, height-2);//
+  //update();
+  thread("update");
   padLeft.display();  
   padRight.display(); 
   balle1.display();
