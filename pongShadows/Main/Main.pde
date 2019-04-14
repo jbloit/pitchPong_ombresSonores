@@ -76,14 +76,18 @@ void updateGameTimer() {
   }
 }
 
-// OSC callbacks
+////////////////////////////////////////////////////
+// OSC callbacks (audio descriptors)
+// first channel is used for controlling the loudness shadow
+// second channel is used for controlling the timbral shadow (voiced) 
 public void audioDescriptorsChan0(float pitchVal, float ampVal, float voicedVal) {
   pong.setPitch(0, pitchVal);
   shadows.setLoudness(ampVal);
 }
 public void audioDescriptorsChan1(float pitchVal, float ampVal, float voicedVal) {
   pong.setPitch(1, pitchVal);
-  shadows.setVoiced(voicedVal);
+  shadows.setLoudness(ampVal);
+  shadows.setVoiced(voicedVal, ampVal);
 }
 
 

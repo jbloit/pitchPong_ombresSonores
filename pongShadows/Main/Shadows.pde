@@ -13,9 +13,12 @@ class Shadows {
   color white = color(255);
   color black = color (0);
 
-  // Audio analysis current values
+  /////////////////////////////////
+  // Audio analysis current values. The voiced animation needs 2 control parameters, value(the actual timbre descriptor)
+  // and gain (so that nothing shows when no sound is present)
   float ampValue = 0;
-  float voicedValue = 0;
+  float voicedValue = 0; 
+  float voicedGain = 0;
 
   // Origin for silhouette and skeleton image
   PVector kinectImgOffset = new PVector(50, 50);
@@ -114,9 +117,9 @@ class Shadows {
   // bouba/kiki shadow, reacts to audio amplitude and voiced feature
   void drawVoicedShadow(float centerX, float centerY) {
 
-    quarterSliceAngle = map(mouseX, 0, width, -sliceAngle, sliceAngle);
-    outerRadius = map(mouseY, 0, height, innerRadius, kinectWidth );
-    midRadius = map(mouseX, 0, width, outerRadius, innerRadius);
+    quarterSliceAngle = map(this.voicedValue, 1, 0, -sliceAngle, sliceAngle);
+    outerRadius = map(this.voicedGain, 0, 1, innerRadius, kinectWidth );
+    midRadius = map(this.voicedValue, 1, 0, outerRadius, innerRadius);
 
     for (int i=0; i<sliceCount; i++) {
       innerVertices[i] = new PVector(cos(sliceAngle * i) * innerRadius + centerX, sin(sliceAngle * i) * innerRadius + centerY);
@@ -256,8 +259,9 @@ class Shadows {
     this.ampValue = ampVal;
   }  
 
-  public void setVoiced(float voicedVal) {
+  public void setVoiced(float voicedVal, float ampVal) {
     this.voicedValue = voicedVal;
+    this.voicedGain = ampVal;
   }
 
 
