@@ -17,37 +17,59 @@ class Shadows {
   float ampValue = 0;
   float voicedValue = 0;
 
-
   // Origin for silhouette and skeleton image
   PVector kinectImgOffset = new PVector(50, 50);
 
+  /////////////////////////////////
   // For loudness shadow  
   int slices = 20;
   float pie_slice = TWO_PI/slices;
   float x, y, szX, szY, theta;
 
+
+  /////////////////////////////////
+  // For Voiced shadow
+  int sliceCount = 10;
+  float innerRadius;
+  float outerRadius;
+  float midRadius;
+  float sliceAngle = TWO_PI / sliceCount ;
+  float halfSliceAngle = sliceAngle/2 ;
+  float quarterSliceAngle = halfSliceAngle ;
+  PVector[] controlPoints;
+  PVector[] outerVertices;
+  PVector[] innerVertices;
+  PVector center;
+
+  /////////////////////////////////
+  // Constructor
   public Shadows(PApplet _parent) {
     parent = _parent;
     kinect = new Kinect(parent);
     bodies = new ArrayList<SkeletonData>();
+
+
+    ////////// For booba/kiki shadow
+    innerRadius = width * 0.1;
+    outerRadius = width * 0.4;
+    midRadius = width * 0.2;
+    controlPoints = new PVector[sliceCount*2]; // for outer vertices
+    outerVertices = new PVector[sliceCount];
+    innerVertices = new PVector[sliceCount];
   }
 
   public void draw() {
     clear();
     background(255);
 
-
     // draw silhouette
     img = kinect.GetMask();
     img.loadPixels();
-
-
     for (int x = 0; x < kinectWidth; x++) {
       for (int y = 0; y < kinectHeight; y++) {
         int index = x + y * kinectWidth;
         c = color(img.pixels[index]);
         float a = alpha(c);
-
         if (a>0) {
           img.pixels[index] = black;
         } else {
@@ -55,25 +77,21 @@ class Shadows {
         }
       }
     }
-
-
     img.updatePixels();
     image(img, kinectImgOffset.x, kinectImgOffset.y);
 
-    println(bodies.size());
+    // println(bodies.size());
 
-    for (int i=0; i<bodies.size(); i++) 
-    {
+    // For each detected person, draw the skeleton/and or animation
+    for (int i=0; i<bodies.size(); i++) {
       drawSkeleton(bodies.get(i));
     }
   }
 
-
-
-  // sombrero shadow
+  /////////////////////////////////////////////////////////////////////////
+  // sombrero shadow, reacts to audio Loudness
   void drawLoudnessShadow(float centerX, float centerY) {
     fill(0);
-
     y = map(theta, 0, 1, 0, -150);
     szY = height/4 + y ;
     szX = 200; 
@@ -84,23 +102,49 @@ class Shadows {
       arc(0, y, szX, szY, (PI*1.5)-(pie_slice/2), (PI*1.5)+(pie_slice/2));
       popMatrix();
     } 
-
     theta = ampValue ;
-
     //  draw inner circle
     float w = 50 + 100 * ampValue; 
     float h = w;
     ellipse(centerX, centerY, w, h);
   }
 
+
+  /////////////////////////////////////////////////////////////////////////
+  // bouba/kiki shadow, reacts to audio amplitude and voiced feature
+  void drawVoicedShadow(float centerX, float centerY) {
+
+    quarterSliceAngle = map(mouseX, 0, width, -sliceAngle, sliceAngle);
+    outerRadius = map(mouseY, 0, height, innerRadius, kinectWidth );
+    midRadius = map(mouseX, 0, width, outerRadius, innerRadius);
+
+    for (int i=0; i<sliceCount; i++) {
+      innerVertices[i] = new PVector(cos(sliceAngle * i) * innerRadius + centerX, sin(sliceAngle * i) * innerRadius + centerY);
+      outerVertices[i] = new PVector(cos(sliceAngle * i + halfSliceAngle) * outerRadius + centerX, sin(sliceAngle * i + halfSliceAngle) * outerRadius + centerY);
+      controlPoints[i*2] = new PVector(cos(sliceAngle * i - quarterSliceAngle) * midRadius + centerX, sin(sliceAngle * i - quarterSliceAngle) * midRadius + centerY);
+      controlPoints[i*2 + 1] = new PVector(cos(sliceAngle * i + quarterSliceAngle) * midRadius + centerX, sin(sliceAngle * i + quarterSliceAngle) * midRadius + centerY);
+    }
+
+    // draw
+    fill(0);
+    beginShape();
+    for (int i=0; i<sliceCount; i++) {
+      vertex(innerVertices[i].x, innerVertices[i].y);
+      bezierVertex(controlPoints[i*2].x, controlPoints[i*2].y, controlPoints[i*2 + 1].x, controlPoints[i*2 +1 ].y, outerVertices[i].x, outerVertices[i].y);
+    }
+    vertex(innerVertices[0].x, innerVertices[0].y);
+    endShape();
+  }
+
+
   void drawSkeleton(SkeletonData _s) 
   {
 
-    // Head
+    // Head, this one embeds the head shadow animations 
     DrawHead(_s, Kinect.NUI_SKELETON_POSITION_HEAD);
 
     /*
- // Body
+     // Body
      DrawBone(_s, 
      Kinect.NUI_SKELETON_POSITION_HEAD, 
      Kinect.NUI_SKELETON_POSITION_SHOULDER_CENTER);
@@ -180,14 +224,14 @@ class Shadows {
 
   void DrawHead(SkeletonData _s, int _j1) {
 
-
     if (_s.skeletonPositionTrackingState[_j1] != Kinect.NUI_SKELETON_POSITION_NOT_TRACKED) {
       fill(100);
       // head marker
       ellipse(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y, 30, 30);
 
       // audio loudness shadow
-      drawLoudnessShadow(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y);
+      //drawLoudnessShadow(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y);
+      drawVoicedShadow(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y);
     }
   }
 
