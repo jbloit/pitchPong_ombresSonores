@@ -12,6 +12,8 @@ class Shadows {
   color c ;
   color white = color(255);
   color black = color (0);
+  
+  
 
   /////////////////////////////////
   // Audio analysis current values. The voiced animation needs 2 control parameters, value(the actual timbre descriptor)
@@ -230,11 +232,16 @@ class Shadows {
     if (_s.skeletonPositionTrackingState[_j1] != Kinect.NUI_SKELETON_POSITION_NOT_TRACKED) {
       fill(100);
       // head marker
+      float headX = _s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x;
+      float headY = _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y;
       ellipse(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y, 30, 30);
 
-      // audio loudness shadow
-      //drawLoudnessShadow(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y);
-      drawVoicedShadow(_s.skeletonPositions[_j1].x * kinectWidth + kinectImgOffset.x, _s.skeletonPositions[_j1].y * kinectHeight + kinectImgOffset.y);
+      // draw audio shadow
+      if (headX < width/2) {
+        drawLoudnessShadow(headX, headY);
+      } else {
+        drawVoicedShadow(headX, headY);
+      }
     }
   }
 
