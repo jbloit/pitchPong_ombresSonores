@@ -28,17 +28,24 @@ class Balle {
     fpsYspeed = FPS / frameRate * ySpeed;
     x = x + fpsXspeed;
     y = y + fpsYspeed;
-    if (x < (3 * radius)) {
-      if (y > padLeft.y - (padLeft.padHeight)/2 && y<padLeft.y+(padLeft.padHeight)/2) {
+    
+    // ball reaches left side
+    if (x < (3 * radius + frameOrigin.x)) {
+      // if it is cqught, bounce
+      if (y > padLeft.y - (padLeft.padHeight)/2 && y<padLeft.y+(padLeft.padHeight)/2) { //<>//
         x= 30 + radius;
         xSpeed = - xSpeed;
-        if (y>padLeft.y-(padLeft.padHeight)/2 && y<padLeft.y-(padLeft.padHeight)/4) ySpeed = ySpeed -2;
-        if (y>padLeft.y+(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/2) ySpeed = ySpeed +2;
+        
+        /*
+        if (y > padLeft.y - (padLeft.padHeight) / 2 && y < padLeft.y - (padLeft.padHeight)/4) ySpeed = ySpeed - 2;
+        if (y>padLeft.y+(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/2) ySpeed = ySpeed + 2;
         if (y>padLeft.y-(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/4) ySpeed = ySpeed / 1.5;
+        */
       } else balle1 = new Balle(2,  frameOrigin, frameW, frameH);
     }
 
-    if (x > frameW - 3*radius) {
+    // ball goes out on right side
+    if (x >  frameOrigin.x + frameW - 3*radius) {
       if (y>padRight.y-(padRight.padHeight)/2 && y<padRight.y+(padRight.padHeight)/2) {
         x = frameW - 3*radius;
         xSpeed = - xSpeed;
