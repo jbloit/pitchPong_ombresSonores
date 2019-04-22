@@ -4,6 +4,10 @@ class Pong {
   PApplet parent;
   boolean isSceneEmpty = true;
 
+  PVector frameOrigin = new PVector(0,0);
+  float frameW = 300;
+  float frameH = 200;
+  
   public Pong(PApplet _parent) {
     parent = _parent;
 

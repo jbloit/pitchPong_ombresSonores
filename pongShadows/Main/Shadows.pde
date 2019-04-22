@@ -23,7 +23,7 @@ class Shadows {
   float voicedGain = 0;
 
   // Origin for silhouette and skeleton image
-  PVector kinectImgOffset = new PVector(50, 50);
+  PVector kinectImgOffset = new PVector(width/2 - kinectWidth/2, 150);
 
   /////////////////////////////////
   // For loudness shadow  
@@ -65,7 +65,14 @@ class Shadows {
 
   public void draw() {
     clear();
-    background(255);
+    
+    
+    
+    background(0);
+
+    fill(155);
+    rect(240, 100, 600,600);
+
 
     // draw silhouette
     img = kinect.GetMask();

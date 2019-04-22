@@ -13,11 +13,11 @@ Shadows shadows;
 // AUTO SWITCHING GAMES
 int now = millis();
 int then = millis();
-int switchGamePeriodMs = 10000;
+int switchGamePeriodMs = 120000;
 enum GAME {
-  PONG, SHADOWS
+  SHADOWS, PONG
 };
-GAME currentGame = GAME.SHADOWS  ;
+GAME currentGame = GAME.PONG  ;
 
 // OSC
 OscP5 oscP5;
@@ -30,11 +30,11 @@ int FPS = 30;
 
 void setup() {
 
-  size(800, 600);
-  //fullScreen();
+//  size(800, 600);
+  fullScreen();
 
   frameRate(FPS);  
-  background(255);
+  background(100);
   pong = new Pong(this);
   shadows = new Shadows(this);
 
@@ -46,7 +46,7 @@ void setup() {
 }
 
 void draw() {
-  // updateGameTimer();
+//   updateGameTimer();
 
   clear();
   if (currentGame == GAME.PONG) {
@@ -86,7 +86,6 @@ public void audioDescriptorsChan0(float pitchVal, float ampVal, float voicedVal)
 }
 public void audioDescriptorsChan1(float pitchVal, float ampVal, float voicedVal) {
   pong.setPitch(1, pitchVal);
-  shadows.setLoudness(ampVal);
   shadows.setVoiced(voicedVal, ampVal);
 }
 
