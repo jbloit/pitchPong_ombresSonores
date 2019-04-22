@@ -1,9 +1,13 @@
 class Pad {
 
-  float x, y, padWidth, padHeight, padSpeed;
+  PVector frameOrigin = new PVector(0, 0);
+  float x, y, padWidth, padHeight, padSpeed, frameW, frameH;
 
-  Pad(float abscisse, float _width, float _height) {
-    y = height/2;
+  Pad(float abscisse, float _width, float _height, PVector _frameOrigin, float _frameW, float _frameH) {
+    frameW = _frameW;
+    frameH = _frameH;
+    frameOrigin = _frameOrigin;
+    y = frameH / 2;
     x = abscisse;
     padWidth = _width;
     padHeight = _height;
@@ -11,7 +15,7 @@ class Pad {
 
   void update() {
     if (y < padHeight/2) y = padHeight/2;
-    if (y>height-padHeight/2) y=height-padHeight/2;
+    if (y>frameH-padHeight/2) y=frameH-padHeight/2;
   }
 
   void display() {

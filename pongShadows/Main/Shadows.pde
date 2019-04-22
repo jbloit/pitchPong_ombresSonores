@@ -70,9 +70,10 @@ class Shadows {
     
     background(0);
 
-    fill(155);
-    rect(240, 100, 600,600);
-
+    // frame
+    fill(255);
+    float frameX = 260;
+    rect(frameX, 0, width - (2 * frameX), kinectHeight + kinectImgOffset.y);
 
     // draw silhouette
     img = kinect.GetMask();

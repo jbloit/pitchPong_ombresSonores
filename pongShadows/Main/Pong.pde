@@ -4,24 +4,26 @@ class Pong {
   PApplet parent;
   boolean isSceneEmpty = true;
 
-  PVector frameOrigin = new PVector(0,0);
-  float frameW = 300;
-  float frameH = 200;
+//    rect(240, 100, 600,600);
+
+  PVector frameOrigin = new PVector(260,0);
+  float frameW = width - (2 * 260);
+  float frameH = 600;
   
   public Pong(PApplet _parent) {
     parent = _parent;
 
-    padLeft = new Pad(30, 20, height/5);
-    padRight = new Pad(width-30, 20, height/5);
-    balle1 = new Balle(1);
+    padLeft = new Pad(30 + frameOrigin.x, 20, frameH/5, frameOrigin, frameW, frameH);
+    padRight = new Pad(frameW-30 + frameOrigin.x, 20, frameH/5, frameOrigin, frameW, frameH);
+    balle1 = new Balle(1, frameOrigin, frameW, frameH);
 
   }
 
   public void setPitch(int chan, float value) {
     if (chan == 0) {
-      padLeft.y = (1.0 - value) * height;
+      padLeft.y = (1.0 - value) * frameH;
     } else {
-      padRight.y = (1.0 - value) * height;
+      padRight.y = (1.0 - value) * frameH;
     }
   }
 
@@ -29,14 +31,20 @@ class Pong {
     clear();
     rectMode(CENTER);
 
-
     background(0);
     stroke(255);
-    line(0, 0, width-1, 0);   
-    line(width-2, 0, width-2, height-2);
-    line(width-2, height-2, 0, height-2);   
-    line(0, 0, 0, height-2);
-    line(width/2, 0, width/2, height);
+    line(frameOrigin.x, frameOrigin.y, frameOrigin.x + frameW-1, frameOrigin.y);   
+    line(frameOrigin.x+frameW-2, frameOrigin.y, frameOrigin.x+frameW-2, frameOrigin.y + frameH-2);
+ 
+ 
+    line(frameOrigin.x, frameOrigin.y + frameH-2, frameOrigin.x+frameW-2, frameOrigin.y + frameH-2);   
+ 
+    
+    line(frameOrigin.x, frameOrigin.y, frameOrigin.x, frameH-2);
+
+    
+    line(frameOrigin.x + frameW/2, frameOrigin.y, frameOrigin.x + frameW/2, frameOrigin.y + frameH);
+
     padLeft.update();  
     padRight.update(); 
     balle1.update();
