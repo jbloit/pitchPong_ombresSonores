@@ -1,4 +1,4 @@
-class Balle {
+class Balle { //<>//
   float x, y, xSpeed, ySpeed, radius, initSpeed, fpsYspeed, fpsXspeed, frameW, frameH;
 
   PVector frameOrigin = new PVector(0, 0);
@@ -31,9 +31,14 @@ class Balle {
     
     // ball reaches left side
     if (x < (3 * radius + frameOrigin.x)) {
+      
+       println("REACHED LEFT");
       // if it is cqught, bounce
-      if (y > padLeft.y - (padLeft.padHeight)/2 && y<padLeft.y+(padLeft.padHeight)/2) { //<>//
-        x= 30 + radius;
+      if (y > padLeft.y - (padLeft.padHeight)/2 && y<padLeft.y+(padLeft.padHeight)/2) {
+        
+         println("AND BOUNCED");
+         
+        x= 30 + radius +frameOrigin.x;
         xSpeed = - xSpeed;
         
         /*
@@ -41,25 +46,35 @@ class Balle {
         if (y>padLeft.y+(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/2) ySpeed = ySpeed + 2;
         if (y>padLeft.y-(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/4) ySpeed = ySpeed / 1.5;
         */
+        
       } else balle1 = new Balle(2,  frameOrigin, frameW, frameH);
     }
 
     // ball goes out on right side
+    
     if (x >  frameOrigin.x + frameW - 3*radius) {
+      println("REACHED RIGHT");
       if (y>padRight.y-(padRight.padHeight)/2 && y<padRight.y+(padRight.padHeight)/2) {
-        x = frameW - 3*radius;
+        
+        println("AND BOUNCED");
+        
+        x = frameW + frameOrigin.x - 3*radius;
         xSpeed = - xSpeed;
+        
+        /*
         if (y>padRight.y-(padRight.padHeight)/2 && y<padRight.y-(padRight.padHeight)/4) ySpeed = ySpeed -2;
         if (y>padRight.y+(padRight.padHeight)/4 && y<padRight.y+(padRight.padHeight)/2) ySpeed = ySpeed +2;
         if (y>padRight.y-(padRight.padHeight)/4 && y<padRight.y+(padRight.padHeight)/4) ySpeed = ySpeed / 1.5;
+        */
+        
       } else balle1 = new Balle(1,  frameOrigin, frameW, frameH);
     }
 
-    if (y < radius) {
+    if (y < (frameOrigin.y + radius)) {
       y = radius;
       ySpeed = - ySpeed;
     }
-    if (y > frameH - radius) {
+    if (y > (frameOrigin.y + frameH - radius)) {
       y = frameH - radius;
       ySpeed = - ySpeed;
     }
