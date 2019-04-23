@@ -8,7 +8,8 @@ import oscP5.*;
 import netP5.*;
 
 Pong pong;
-Shadows shadows;
+// UNCOMMENT
+//Shadows shadows;
 
 // AUTO SWITCHING GAMES
 int now = millis();
@@ -36,7 +37,9 @@ void setup() {
   frameRate(FPS);  
   background(100);
   pong = new Pong(this);
-  shadows = new Shadows(this);
+  
+  // UNCOMMENT
+  // shadows = new Shadows(this);
 
   /* start oscP5, listening for incoming messages at port 12000 */
   oscP5 = new OscP5(this, 12000);
@@ -52,7 +55,8 @@ void draw() {
   if (currentGame == GAME.PONG) {
     pong.draw();
   } else {
-    shadows.draw();
+    // UNCOMMENT
+//    shadows.draw();
   }
 
   // fps
@@ -75,6 +79,25 @@ void updateGameTimer() {
     then = now;
   }
 }
+
+
+  
+void keyPressed() {
+    int k = keyCode;
+  pong.keyPressed(k);
+}
+
+void keyReleased() {
+    int k = keyCode;
+  pong.keyReleased(k);
+}
+
+
+
+
+// UNCOMMENT
+/*
+
 
 ////////////////////////////////////////////////////
 // OSC callbacks (audio descriptors)
@@ -103,3 +126,5 @@ void disappearEvent(SkeletonData _s) {
 void moveEvent(SkeletonData _b, SkeletonData _a) {
   shadows.moveEvent( _b, _a);
 }
+
+*/

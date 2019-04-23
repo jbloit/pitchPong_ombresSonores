@@ -20,22 +20,39 @@ class Balle {
     x = x + xSpeed;
     y = y + ySpeed;
     if (x < (3 * radius)) {
+      
+      println("REACHED LEFT");
+      
       if (y>padLeft.y-(padLeft.padHeight)/2 && y<padLeft.y+(padLeft.padHeight)/2) {
+        
+        println("AND BOUNCED");
+        
         x= 30 + radius;
         xSpeed = - xSpeed;
+        
+        /*
         if (y>padLeft.y-(padLeft.padHeight)/2 && y<padLeft.y-(padLeft.padHeight)/4) ySpeed = ySpeed -2;
         if (y>padLeft.y+(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/2) ySpeed = ySpeed +2;
         if (y>padLeft.y-(padLeft.padHeight)/4 && y<padLeft.y+(padLeft.padHeight)/4) ySpeed = ySpeed / 1.5;
-      } else balle1 = new Balle(2);
+        */
+        
+      } else {
+        println("AND MISSED");
+        balle1 = new Balle(2);
+    }
     }
 
     if (x > width - 3*radius) {
       if (y>padRight.y-(padRight.padHeight)/2 && y<padRight.y+(padRight.padHeight)/2) {
         x = width - 3*radius;
         xSpeed = - xSpeed;
+        
+        /*
         if (y>padRight.y-(padRight.padHeight)/2 && y<padRight.y-(padRight.padHeight)/4) ySpeed = ySpeed -2;
         if (y>padRight.y+(padRight.padHeight)/4 && y<padRight.y+(padRight.padHeight)/2) ySpeed = ySpeed +2;
         if (y>padRight.y-(padRight.padHeight)/4 && y<padRight.y+(padRight.padHeight)/4) ySpeed = ySpeed / 1.5;
+        */
+        
       } else balle1 = new Balle(1);
     }
 
