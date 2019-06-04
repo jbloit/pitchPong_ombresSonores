@@ -14,4 +14,13 @@ Interactive installation, showing animation of vocal features. It consists of 2 
 - Install [Kinect for Windows SDK v1.8](https://www.microsoft.com/en-us/download/details.aspx?id=40278)
 
 
+## Scripts to run on startup
+
+- processing: ./pongShadows/Main/Main.pde
+  this script has both games in it, and switches from one to the other after some time.
+- supercollider: ./pong/pongAnalysis.scd
+  this is the audio analysis script
+
+
+
 
