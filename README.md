@@ -5,7 +5,7 @@ Interactive installation, showing animation of vocal features. It consists of 2 
 - Pitch Pong: the classiv Pong game, where each pad is controlled with the voice pitch.
 - Audio Shadows: display the user shadow and replace the head with an animation that changes either with Loudness or Timbral features (voiced factor).
 
-## System setup @LaPetiteFabrique
+## System setup for the exhibition
 
 - Install Processing v3
 
