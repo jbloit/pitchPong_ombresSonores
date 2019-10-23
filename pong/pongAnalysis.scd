@@ -52,7 +52,7 @@ s.waitForBoot({
 					~meterBusses[i].get({|ampVal|
 
 						~voicedBusses[i].get({|voicedVal|
-							// pitchVal.postln;
+							pitchVal.postln;
 							~uiMachine.sendMsg("/audio/chan_"++i, pitchVal, ampVal, voicedVal);
 
 						});
